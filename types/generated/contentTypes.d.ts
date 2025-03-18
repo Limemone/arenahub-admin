@@ -381,13 +381,12 @@ export interface ApiAppointmentAppointment extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    arena: Schema.Attribute.Relation<'manyToOne', 'api::arena.arena'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Date: Schema.Attribute.String;
-    doctor: Schema.Attribute.Relation<'manyToOne', 'api::doctor.doctor'>;
     Email: Schema.Attribute.Email;
-    hospital: Schema.Attribute.Relation<'manyToOne', 'api::hospital.hospital'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -395,6 +394,7 @@ export interface ApiAppointmentAppointment extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     Note: Schema.Attribute.RichText;
+    owner: Schema.Attribute.Relation<'manyToOne', 'api::owner.owner'>;
     publishedAt: Schema.Attribute.DateTime;
     Time: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -404,48 +404,13 @@ export interface ApiAppointmentAppointment extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
+export interface ApiArenaArena extends Struct.CollectionTypeSchema {
+  collectionName: 'arenas';
   info: {
     description: '';
-    displayName: 'Category';
-    pluralName: 'categories';
-    singularName: 'category';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    doctors: Schema.Attribute.Relation<'manyToMany', 'api::doctor.doctor'>;
-    hospitals: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::hospital.hospital'
-    >;
-    Icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    > &
-      Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiDoctorDoctor extends Struct.CollectionTypeSchema {
-  collectionName: 'doctors';
-  info: {
-    description: '';
-    displayName: 'Doctor';
-    pluralName: 'doctors';
-    singularName: 'doctor';
+    displayName: 'Arena';
+    pluralName: 'arenas';
+    singularName: 'arena';
   };
   options: {
     draftAndPublish: true;
@@ -468,10 +433,7 @@ export interface ApiDoctorDoctor extends Struct.CollectionTypeSchema {
     EndTime: Schema.Attribute.Time;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::doctor.doctor'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::arena.arena'> &
       Schema.Attribute.Private;
     Name: Schema.Attribute.String;
     Phone: Schema.Attribute.String;
@@ -485,13 +447,45 @@ export interface ApiDoctorDoctor extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiHospitalHospital extends Struct.CollectionTypeSchema {
-  collectionName: 'hospitals';
+export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
+  collectionName: 'categories';
   info: {
     description: '';
-    displayName: 'Hospital';
-    pluralName: 'hospitals';
-    singularName: 'hospital';
+    displayName: 'Category';
+    pluralName: 'categories';
+    singularName: 'category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    arenas: Schema.Attribute.Relation<'manyToMany', 'api::arena.arena'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String;
+    owners: Schema.Attribute.Relation<'manyToMany', 'api::owner.owner'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOwnerOwner extends Struct.CollectionTypeSchema {
+  collectionName: 'owners';
+  info: {
+    description: '';
+    displayName: 'Owner';
+    pluralName: 'owners';
+    singularName: 'owner';
   };
   options: {
     draftAndPublish: true;
@@ -513,10 +507,7 @@ export interface ApiHospitalHospital extends Struct.CollectionTypeSchema {
     Email: Schema.Attribute.Email;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::hospital.hospital'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::owner.owner'> &
       Schema.Attribute.Private;
     Name: Schema.Attribute.String;
     OpeningHours: Schema.Attribute.Time;
@@ -1070,9 +1061,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::appointment.appointment': ApiAppointmentAppointment;
+      'api::arena.arena': ApiArenaArena;
       'api::category.category': ApiCategoryCategory;
-      'api::doctor.doctor': ApiDoctorDoctor;
-      'api::hospital.hospital': ApiHospitalHospital;
+      'api::owner.owner': ApiOwnerOwner;
       'api::slider.slider': ApiSliderSlider;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

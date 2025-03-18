@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * hospital service
+ * arena service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::hospital.hospital');
+module.exports = createCoreService('api::arena.arena');

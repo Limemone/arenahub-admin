@@ -24,19 +24,19 @@
     "Time": {
       "type": "string"
     },
-    "hospital": {
+    "owner": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::hospital.hospital",
+      "target": "api::owner.owner",
       "inversedBy": "appointments"
     },
     "Note": {
       "type": "richtext"
     },
-    "doctor": {
+    "arena": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::doctor.doctor",
+      "target": "api::arena.arena",
       "inversedBy": "appointments"
     }
   }

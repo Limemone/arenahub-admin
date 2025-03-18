@@ -6,6 +6,7 @@ module.exports = ({env}) => ({
                 cloud_name: env('CLOUDINARY_NAME'),
                 api_key: env('CLOUDINARY_KEY'),
                 api_secret: env('ClOUDINARY_SECRET'),    
+                cloud_url: env('CLOUDINARY_URL'),
             },
             actionOptions:{
                 upload:{},

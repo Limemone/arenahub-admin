@@ -1,19 +1,19 @@
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::doctor.doctor', ({ strapi }) => ({
+module.exports = createCoreController('api::arena.arena', ({ strapi }) => ({
   async findOne(ctx) {
     const { id } = ctx.params;
 
     // Query for the entry, including unpublished drafts
-    const doctor = await strapi.db.query('api::doctor.doctor').findOne({
+    const arena = await strapi.db.query('api::arena.arena').findOne({
       where: { id }, // Find by ID
       populate: true, // Include relationships
     });
 
-    if (!doctor) {
-      return ctx.notFound('Doctor not found.');
+    if (!arena) {
+      return ctx.notFound('Arena not found.');
     }
 
-    return doctor;
+    return arena;
   },
 }));

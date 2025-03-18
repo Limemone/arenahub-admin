@@ -26,16 +26,16 @@
         "audios"
       ]
     },
-    "doctors": {
+    "arenas": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::doctor.doctor",
+      "target": "api::arena.arena",
       "mappedBy": "categories"
     },
-    "hospitals": {
+    "owners": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::hospital.hospital",
+      "target": "api::owner.owner",
       "inversedBy": "categories"
     }
   }

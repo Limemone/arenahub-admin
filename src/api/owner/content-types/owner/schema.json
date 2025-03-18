@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "hospitals",
+  "collectionName": "owners",
   "info": {
-    "singularName": "hospital",
-    "pluralName": "hospitals",
-    "displayName": "Hospital",
+    "singularName": "owner",
+    "pluralName": "owners",
+    "displayName": "Owner",
     "description": ""
   },
   "options": {
@@ -42,7 +42,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::category.category",
-      "mappedBy": "hospitals"
+      "mappedBy": "owners"
     },
     "Description": {
       "type": "richtext"
@@ -57,7 +57,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::appointment.appointment",
-      "mappedBy": "hospital"
+      "mappedBy": "owner"
     }
   }
 }

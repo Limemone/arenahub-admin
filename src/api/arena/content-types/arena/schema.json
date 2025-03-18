@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "doctors",
+  "collectionName": "arenas",
   "info": {
-    "singularName": "doctor",
-    "pluralName": "doctors",
-    "displayName": "Doctor",
+    "singularName": "arena",
+    "pluralName": "arenas",
+    "displayName": "Arena",
     "description": ""
   },
   "options": {
@@ -34,7 +34,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::category.category",
-      "inversedBy": "doctors"
+      "inversedBy": "arenas"
     },
     "Phone": {
       "type": "string"
@@ -58,7 +58,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::appointment.appointment",
-      "mappedBy": "doctor"
+      "mappedBy": "arena"
     },
     "email": {
       "type": "email"
